@@ -1,6 +1,8 @@
 # CompProgBot
 A Discord bot for competitive programming. 
 
+Invite CompProgBot to your server: https://discordapp.com/oauth2/authorize?client_id=492133335133585418&scope=bot&permissions=67624000
+
 ## About
 
 ### History 
@@ -20,11 +22,11 @@ TL;DR: Currently using laptop as server, might use Heroku in the future.
 All commands start with the `~` prefix.
 
 ### Bot info
-`~help` or `~about`: Shows a help message.
+`~help` or `~about`: Shows a not so helpful help message. This was created just to test my bot.
 
-`~commands`: Lists commands (what it really does is link to this page).
+`~commands`: Lists commands (what it actually does is link to this page).
 
-`~bug`: Report a bug. More specifically, link to the issues page.
+`~bug`: Report a bug. More specifically, links to the issues page.
 
 ### Online judges
 `~uva [id]`: Links to and shows information of a certain UVa Online Judge problem.

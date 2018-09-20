@@ -2,8 +2,8 @@
 
 const Discord = require('discord.js');
 const request = require('request');
+const apiKey = require('./apikey.js');
 
-const TOKEN = 'NDkyMTMzMzM1MTMzNTg1NDE4.DoSAGg.gtM_C5z5wkSddYzFNSsBDLug2cE';
 
 var isNum = function(c){
 	for(j=0; j<10; j++)
@@ -55,7 +55,7 @@ bot.on('message', function(message){
 
 		case 'commands':
 			message.channel.send(
-				"For a complete list of commands, please go to https://github.com/wj3ng/CompProgBot/blob/master/README.md"
+				"For a complete list of commands, please go to https://github.com/wj3ng/CompProgBot#commands"
 			);
 			return;
 
@@ -106,4 +106,4 @@ bot.on('message', function(message){
 });
 
 // start the bot
-bot.login(TOKEN);
+bot.login(apiKey.TOKEN);
