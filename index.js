@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const request = require('request');
 const apiKey = require('./apikey.js');
 
+// functions =====================
 
 var isNum = function(c){
 	for(j=0; j<10; j++)
@@ -11,6 +12,7 @@ var isNum = function(c){
 	return false;
 }
 
+// ================================
 
 var bot = new Discord.Client();
 var PREFIX = '~';
@@ -26,6 +28,7 @@ bot.on("ready", function(){
 });
 
 bot.on('message', function(message){
+
 
 	if(message.author.bot) return; // ignore bot messages
 
@@ -51,31 +54,32 @@ bot.on('message', function(message){
 				'For commands, type "' + PREFIX + 'commands"\n' +
 				"My source code is available at https://github.com/wj3ng/CompProgBot"
 			);
-			return;
+			break;
 
 		case 'commands':
 			message.channel.send(
 				"For a complete list of commands, please go to https://github.com/wj3ng/CompProgBot#commands"
 			);
-			return;
+			break;
 
 		case 'bug':
 			message.channel.send(
 				"To report a bug, please go to https://github.com/wj3ng/CompProgBot/issues"
 			);
-			return;
+			break;
 
 		//===== ONLINE JUDGES =====
 
 		case 'uva':
-			
+			if(!args[1]){
+				message.channel.send('Please state a problem number. Ex: "~uva 00100"');
+				break;
+			}
 			let uvaValID = true;
 			if(args[1].length > 5) uvaValID = false;
 			for(i=0; i<args[1].length; ++i)
 				if(!isNum(args[1].charAt(i))) uvaValID = false;
-
-			if(!args[1]) message.channel.send('Please state a problem number. Ex: "~uva 00100"');
-			else if(!uvaValID) message.channel.send('Invalid format. Ex: "~uva 00100"');
+			if(!uvaValID) message.channel.send('Invalid format. Ex: "~uva 00100"');
 			else{
 				request("https://uhunt.onlinejudge.org/api/p/num/"+args[1], {json: true}, function(err, resp, body){
 					if(body.num == undefined) message.channel.send("Problem does not exist.");
@@ -90,18 +94,42 @@ bot.on('message', function(message){
 					}
 				});
 			}
-			return;
+			break;
 
 		case 'cf':
 		case 'codeforces':
-			return;
+			break;
 
 		//===== MISC =====
 
-
+		case 'meme':
+		case 'memes':
+		case 'reddit':
+		case 'programmerhumor':
+			request("https://www.reddit.com/r/programmerhumor.json", {json: true}, function(err,resp,body){ // body is object of JSON file
+				let curPostIndex = Math.floor(Math.random()*20); // random post from top 20
+				while(	body.data.children[curPostIndex].data.over_18 || // nsfw posts
+						body.data.children[curPostIndex].data.is_self || // text posts 
+						body.data.children[curPostIndex].data.stickied || // mod posts
+						body.data.children[curPostIndex].data.is_video // videos
+				){ // rechoose if post is uncompatible
+					curPostIndex = Math.floor(Math.random()*20) + 1;
+				}
+				message.channel.send("Here's a meme from r/ProgrammerHumor!");
+				message.channel.send( new Discord.RichEmbed()
+					.setAuthor('r/ProgrammerHumor',
+						'https://images-ext-2.discordapp.net/external/-YCNSuq_pUXRxMA0qRf4moDDWdmnxEwoM-jjC3b2B-g/https/yagpdb.xyz/static/img/reddit_icon.png',
+						'http://www.reddit.com/r/programmerhumor')
+					.setTitle(body.data.children[curPostIndex].data.title)
+					.setImage(body.data.children[curPostIndex].data.url)
+					.setURL('http://www.reddit.com/' + body.data.children[curPostIndex].data.permalink)
+					.setFooter('submitted by u/' + body.data.children[curPostIndex].data.author)
+					.setColor(0xff4500)
+				);
+			});
+			break;
 
 	}
-
 
 });
 

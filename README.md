@@ -32,12 +32,11 @@ All commands start with the `~` prefix.
 `~uva [id]`: Links to and shows information of a certain UVa Online Judge problem.
 
 ### Other
-none yet :(
+`~meme`, `~memes`, `~reddit` or `~programmerhumor`: Shows a post from the subreddit r/ProgrammerHumor. Chooses from the top 20 posts sorted by hot.
 
 ### Might add in future
 - Online judges to support:
     - Codeforces
     - Codechef
     - and others
-- Reddit (something like top post of r/ProgrammerHumor)
 - Any other suggestions
